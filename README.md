@@ -1,7 +1,7 @@
-# Minimalistic Electron React Boilerplate Code
+# Minimalistic Electron React Redux Boilerplate Code
 
 
-This is a minimal Electron React boilerplate code using webpack and webpack-loader. It's simple and you can built upon starter code. I know there are tons of boilerplate code out there but either they are too tricky for beginner or just a pain. I wanted to code my app not stuck in configuring for a year. Feel free to improve by commiting changes
+This is a minimal Electron React Redux boilerplate code using webpack and webpack-loader. It's simple and you can built upon starter code. I know there are tons of boilerplate code out there but either they are too tricky for beginner or just a pain. I wanted to code my app not stuck in configuring for a year. Feel free to improve by commiting changes
 
 ## To Use
 
@@ -22,7 +22,7 @@ npm start
 
 
 **After making changes to renderer.js hit Ctrl+R in app window to reload manually**
-There is no hot reloading. This is a minimal boilerplate code that will just get you started.
+There is no hot reloading. Every time you change something in any js file make sure to change something in your render.js so webpack can compile again and hit ctrl + R in app window
 
 ##
 

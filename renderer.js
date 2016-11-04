@@ -4,13 +4,14 @@
 
 import React from 'react'
 import ReactDOM from 'react-dom'
+import store from './src/js/store'
+import Layout from './src/js/components/layout'
+import {Provider} from 'react-redux'
 
-class App extends React.Component {
-  render () {
-    return (
-      <h1>Minimalistic Electron React Boilerplate Code :)</h1>
-    )
-  }
-}
-
-ReactDOM.render(<App/>,document.getElementById('app'))
+//comment is
+ReactDOM.render(
+  <Provider store={store}>
+    <Layout/>
+  </Provider>,
+  document.getElementById('app')
+)
