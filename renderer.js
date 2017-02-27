@@ -12,13 +12,13 @@ class Appaudio extends React.Component {
         url:"http://bbcwssc.ic.llnwd.net/stream/bbcwssc_mp1_ws-einws"
     }
     playPause = () => {
-        alert("stop")
         this.setState({ playing: !this.state.playing })
     }
     load = (url) =>{
        this.setState({url : url})
     }
     renderLoadButton=(url,label)=>{
+        console.log("render load button")
         return(
             <button onClick={()=>this.load(url)}>
                 {label}
@@ -35,16 +35,18 @@ class Appaudio extends React.Component {
                     <audio>
                         <ReactPlayer url={url}
                                      playing={playing}
+                                     width='100%'
+                                     height='100%'
                                      onReady={() => console.log('onReady')}
                         />
                     </audio>
                 </div>
+                <button onClick={this.playPause}> {playing? "Stop" : "Start"}</button>
                 <table>
                     <tbody>
                     <tr>
                         <th>BBC</th>
                         <td>
-                            <button onClick={this.playPause()}>Stop</button>
                             {this.renderLoadButton('http://bbcwssc.ic.llnwd.net/stream/bbcwssc_mp1_ws-einws', 'BBC World Service')}
                             {this.renderLoadButton('http://bbcmedia.ic.llnwd.net/stream/bbcmedia_asianet_mf_p', 'BBC Asian Network')}
                         </td>
