@@ -6,23 +6,54 @@ import React from 'react'
 import ReactDOM from 'react-dom'
 import ReactPlayer from 'react-player'
 
-// class App extends React.Component {
-//   render () {
-//     return (
-//       <h1>Minimalistic Electron React Boilerplate Code :)</h1>
-//     )
-//   }
-// }
-
 class Appaudio extends React.Component {
-    render () {
+    state={
+        playing:true,
+        url:"http://bbcwssc.ic.llnwd.net/stream/bbcwssc_mp1_ws-einws"
+    }
+    playPause = () => {
+        alert("stop")
+        this.setState({ playing: !this.state.playing })
+    }
+    load = (url) =>{
+       this.setState({url : url})
+    }
+    renderLoadButton=(url,label)=>{
         return(
-            <audio>
-                <ReactPlayer url='http://bbcwssc.ic.llnwd.net/stream/bbcwssc_mp1_ws-einws' playing />
-            </audio>
+            <button onClick={()=>this.load(url)}>
+                {label}
+            </button>
+        )
+    }
+    render () {
+        const{
+            playing,url
+        }=this.state
+        return(
+            <div>
+                <div>
+                    <audio>
+                        <ReactPlayer url={url}
+                                     playing={playing}
+                                     onReady={() => console.log('onReady')}
+                        />
+                    </audio>
+                </div>
+                <table>
+                    <tbody>
+                    <tr>
+                        <th>BBC</th>
+                        <td>
+                            <button onClick={this.playPause()}>Stop</button>
+                            {this.renderLoadButton('http://bbcwssc.ic.llnwd.net/stream/bbcwssc_mp1_ws-einws', 'BBC World Service')}
+                            {this.renderLoadButton('http://bbcmedia.ic.llnwd.net/stream/bbcmedia_asianet_mf_p', 'BBC Asian Network')}
+                        </td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
             )
     }
 }
 
-// ReactDOM.render(<App/>,document.getElementById('app'))
 ReactDOM.render(<Appaudio/>,document.getElementById('appaudio'))
