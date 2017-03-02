@@ -6,6 +6,7 @@ const BrowserWindow = electron.BrowserWindow
 
 const path = require('path')
 const url = require('url')
+const { Menu, Tray} = require('electron')
 
 // Keep a global reference of the window object, if you don't, the window will
 // be closed automatically when the JavaScript object is garbage collected.
@@ -23,7 +24,7 @@ function createWindow () {
   }))
 
   // Open the DevTools.
-  mainWindow.webContents.openDevTools()
+  // mainWindow.webContents.openDevTools()
 
   // Emitted when the window is closed.
   mainWindow.on('closed', function () {
@@ -37,7 +38,23 @@ function createWindow () {
 // This method will be called when Electron has finished
 // initialization and is ready to create browser windows.
 // Some APIs can only be used after this event occurs.
-app.on('ready', createWindow)
+// app.on('ready', createWindow)
+
+let appIcon = null
+const contextMenu = Menu.buildFromTemplate([
+    {label: 'Item1', type: 'radio'},
+    {label: 'Item2', type: 'radio'}
+])
+
+// Make a change to the context menu
+contextMenu.items[1].checked = false
+app.on('ready', () => {
+    appIcon = new Tray('img/bbc_news.ico')
+
+    // Call this again for Linux because we modified the context menu
+    appIcon.setContextMenu(contextMenu)
+    createWindow()
+})
 
 // Quit when all windows are closed.
 app.on('window-all-closed', function () {
