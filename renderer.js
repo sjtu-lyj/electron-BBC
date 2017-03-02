@@ -13,6 +13,7 @@ import FlatButton from 'material-ui/FlatButton';
 import {BottomNavigation, BottomNavigationItem} from 'material-ui/BottomNavigation';
 import Paper from 'material-ui/Paper';
 import {GridList, GridTile} from 'material-ui/GridList';
+import Icon from './icon'
 
 
 class Appaudio extends React.Component {
@@ -67,7 +68,7 @@ class Appaudio extends React.Component {
                         <AppBar title="BBC RADIO" />
                     </div>
                 <div>
-                    {/*<audio>*/}
+                    <audio>
                         <ReactPlayer url={url}
                                      playing={playing}
                                      width='100%'
@@ -76,10 +77,11 @@ class Appaudio extends React.Component {
                                      onPlay={() => this.setState({ playing: true })}
                                      onPause={() => this.setState({ playing: false })}
                         />
-                    {/*</audio>*/}
+                    </audio>
                 </div>
                 <div onClick={this.playPause}>
-                    <FlatButton label={playing? "Stop" : "Start"} primary={true} />
+                    {/*<FlatButton label={playing? "Stop" : "Start"} primary={true} />*/}
+                    <Icon size="4rem" icon= {playing? "pause" : "play"}/>
                 </div>
 
 
