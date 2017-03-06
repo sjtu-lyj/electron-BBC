@@ -11,11 +11,21 @@ const { Menu, Tray} = require('electron')
 // Keep a global reference of the window object, if you don't, the window will
 // be closed automatically when the JavaScript object is garbage collected.
 let mainWindow
+let appIcon
+
+function createIcon() {
+    appIcon = new Tray('img/bbc_news.ico')
+    const contextMenu=Menu.buildFromTemplate(getMenuTemplate())
+
+    // Call this again for Linux because we modified the context menu
+    appIcon.setContextMenu(contextMenu)
+}
 
 function createWindow () {
   // Create the browser window.
-  mainWindow = new BrowserWindow({width: 800, height: 600})
+    mainWindow = new BrowserWindow({width: 800, height: 600})
 
+    createIcon()
   // and load the index.html of the app.
   mainWindow.loadURL(url.format({
     pathname: path.join(__dirname, 'index.html'),
@@ -40,19 +50,10 @@ function createWindow () {
 // Some APIs can only be used after this event occurs.
 // app.on('ready', createWindow)
 
-let appIcon = null
-const contextMenu = Menu.buildFromTemplate([
-    {label: 'Item1', type: 'radio'},
-    {label: 'Item2', type: 'radio'}
-])
 
 // Make a change to the context menu
-contextMenu.items[1].checked = false
+// contextMenu.items[1].checked = false
 app.on('ready', () => {
-    appIcon = new Tray('img/bbc_news.ico')
-
-    // Call this again for Linux because we modified the context menu
-    appIcon.setContextMenu(contextMenu)
     createWindow()
 })
 
@@ -75,3 +76,44 @@ app.on('activate', function () {
 
 // In this file you can include the rest of your app's specific main process
 // code. You can also put them in separate files and require them here.
+
+function getToggleItem() {
+    return{
+        label:"Show/Hide",
+        click:()=>{
+            if (mainWindow.isVisible()){
+                mainWindow.hide()
+            }else {
+                mainWindow.show()
+            }
+        }
+    }
+        // if (mainWindow.isVisible()) {
+        //     return{
+        //         label:"Hide to tray",
+        //         click:()=>{
+        //             // if(!mainWindow) return
+        //             mainWindow.hide()
+        //         }
+        //     }
+        // }else {
+        //     return{
+        //         label:"Show WebTorrent",
+        //         click:()=> {
+        //             // if(mainWindow) return
+        //             mainWindow.show()
+        //         }
+        //     }
+        // }
+}
+function getMenuTemplate () {
+    return [
+        getToggleItem(),
+        {
+            label: 'Quit',
+            click: () => app.quit()
+        }
+    ]
+}
+
+
